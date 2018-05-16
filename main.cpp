@@ -23,15 +23,13 @@ public:
     
     //Class Variables
     unsigned int userAge = 0;
-    string userFirstName = "John\0";
-    string userLastName = "Doe\0";
+    string userFullName = "\0";
     
     //Constructor
     User (){
-        cout << "User First Name: ";
-        cin >> userFirstName;
-        cout << "User Last Name: ";
-        cin >> userLastName;
+        cout << "User Full Name: ";
+        cin.ignore();
+        getline(cin, userFullName);
         cout << "User Age: ";
         cin >> userAge;
     }
@@ -71,16 +69,11 @@ int main(int argc, const char * argv[]) {
     for(int counter = 0; counter < userListLength; counter++) {
         int userListNumber = counter + 1;
         
-        cout << '[' << userListNumber << "] " << "User First Name: " << userList[counter].userFirstName << endl;
-        cout << '[' << userListNumber << "] " << "User Last Name: " << userList[counter].userLastName << endl;
+        cout << '[' << userListNumber << "] " <<  "User Full Name: " << userList[counter].userFullName << endl;
         cout << '[' << userListNumber << "] " << "User Age: " << userList[counter].userAge << endl << endl;
         
-        string fullName = userList[counter].userFirstName + " " + userList[counter].userLastName;
-        
-        int userHash = hashFunc(sizeof(fullName), userList[counter].userAge, fullName.length());
+        int userHash = hashFunc(sizeof(userList[counter].userFullName), userList[counter].userAge, userList[counter].userFullName.length());
 
-        
-        cout << '[' << userListNumber << "] " <<  "User Full Name: " << fullName << endl;
         cout << '[' << userListNumber << "] " <<  "User Hash: " << hex << userHash << " " << endl << endl;
         
     }
