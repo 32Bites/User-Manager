@@ -42,8 +42,8 @@ public:
 
 //Functions
 
-long hashFunc(long strSize, long powerOf, long strLength, int nameLength) {
-    long result = (((strSize ^ powerOf) * strLength) / nameLength) ^ 0x45FECA34567654;
+long hashFunc(long strSize, long powerOf, long strLength) {
+    long result = (((strSize ^ powerOf) * strLength) / 0x45676543FFDEADF) ^ 0x45FECA34567654;
     
     return result;
 }
@@ -64,9 +64,9 @@ int main(int argc, const char * argv[]) {
         int userListNumber = counter + 1;
         
         cout << '[' << userListNumber << "] " <<  "User Full Name: " << userList[counter].userFullName << endl;
-        cout << '[' << userListNumber << "] " << "User Age: " << int(userList[counter].userAge) << endl << endl;
+        cout << '[' << userListNumber << "] " << "User Age: " << userList[counter].userAge << endl << endl;
         
-        long userHash = hashFunc(sizeof(userList[counter].userFullName), userList[counter].userAge,userList[counter].userFullName.length() ^ 15, userList[counter].userFullName.length());
+        long userHash = hashFunc(sizeof(userList[counter].userFullName), long(userList[counter].userAge),userList[counter].userFullName.length() ^ 15);
 
         cout << '[' << userListNumber << "] " <<  "User Hash: " << hex << userHash << " " << endl << endl;
         
