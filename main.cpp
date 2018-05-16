@@ -70,7 +70,7 @@ int main(int argc, const char * argv[]) {
         int userHash = hashFunc(sizeof(fullName), userList[counter].userAge, fullName.length());
         
         cout << '[' << userListNumber << "] " <<  "User Full Name: " << fullName << endl;
-        cout << '[' << userListNumber << "] " <<  "User Hash: " /*<< hex*/ << userHash << " " << endl << endl;
+        cout << '[' << userListNumber << "] " <<  "User Hash: " << hex << userHash << " " << endl << endl;
         
     }
     
