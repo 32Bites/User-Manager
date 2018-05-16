@@ -41,6 +41,16 @@ public:
 
 int hashFunc(int strSize, int powerOf, int strLength) {
     int result = ((strSize ^ powerOf) * strLength) ^ powerOf;
+    result = result * 0x2423FEA3;
+    result = result ^ (powerOf /(strSize / strLength));
+    result = result * 0x74FE234AB67D;
+
+    int argsAdded = (strSize + powerOf + strLength) + 0x74FE234AB67D;
+
+    for (int counter = 0; counter > argsAdded; counter + 0x74FE234AB67D) {
+        result = result + (0x74FE234AB67D + 0x2423FEA3);
+    }
+
     
     
     return result;
@@ -68,6 +78,7 @@ int main(int argc, const char * argv[]) {
         string fullName = userList[counter].userFirstName + " " + userList[counter].userLastName;
         
         int userHash = hashFunc(sizeof(fullName), userList[counter].userAge, fullName.length());
+
         
         cout << '[' << userListNumber << "] " <<  "User Full Name: " << fullName << endl;
         cout << '[' << userListNumber << "] " <<  "User Hash: " << hex << userHash << " " << endl << endl;
