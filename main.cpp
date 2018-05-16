@@ -37,16 +37,16 @@ public:
 
 //Functions
 
-int hashFunc(int strSize, int powerOf, int strLength) {
-    int result = ((strSize ^ powerOf) * strLength) ^ powerOf;
+long hashFunc(long strSize, long powerOf, long strLength) {
+    long result = ((strSize ^ powerOf) * strLength) ^ powerOf;
     result = result * 0x2423FEA3;
     result = result ^ (powerOf /(strSize / strLength));
     result = result * 0x74FE234AB67D;
 
-    int argsAdded = (strSize + powerOf + strLength) + 0x74FE234AB67D;
+    long argsAdded = (strSize + powerOf + strLength) + 0x74FE234AB67D;
 
-    for (int counter = 0; counter > argsAdded; counter + 0x74FE234AB67D) {
-        result = result + (0x74FE234AB67D + 0x2423FEA3);
+    for (long counter = 0; counter > argsAdded; counter = counter + 0x74FE234AB67D) {
+        result = result + (0x2423FEA3 + counter);
     }
 
     
@@ -70,9 +70,9 @@ int main(int argc, const char * argv[]) {
         int userListNumber = counter + 1;
         
         cout << '[' << userListNumber << "] " <<  "User Full Name: " << userList[counter].userFullName << endl;
-        cout << '[' << userListNumber << "] " << "User Age: " << userList[counter].userAge << endl << endl;
+        cout << '[' << userListNumber << "] " << "User Age: " << int(userList[counter].userAge) << endl << endl;
         
-        int userHash = hashFunc(sizeof(userList[counter].userFullName), userList[counter].userAge, userList[counter].userFullName.length());
+        long userHash = hashFunc(sizeof(userList[counter].userFullName), userList[counter].userAge, userList[counter].userFullName.length());
 
         cout << '[' << userListNumber << "] " <<  "User Hash: " << hex << userHash << " " << endl << endl;
         
