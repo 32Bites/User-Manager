@@ -6,8 +6,13 @@
 //  Copyright © 2018 Noah Scott Digital. All rights reserved.
 //
 
+//C++ Libraries
+
 #include <iostream>
 #include <string>
+#include <cstdlib>
+
+//C libraries
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,32 +28,23 @@ public:
     
     //Class Variables
     unsigned int userAge = 0;
+    long hash = 0;
     string userFullName = "\0";
     
     //Constructor
     User (){
         cout << "User Full Name: ";
+        cin.ignore();
         getline(cin, userFullName);
-        cout << endl << "User Age: ";
+        cout << "User Age: ";
         cin >> userAge;
     }
 };
 
 //Functions
 
-int hashFunc(int strSize, int powerOf, int strLength) {
-    int result = ((strSize ^ powerOf) * strLength) ^ powerOf;
-    result = result * 0x2423FEA3;
-    result = result ^ (powerOf /(strSize / strLength));
-    result = result * 0x74FE234AB67D;
-
-    int argsAdded = (strSize + powerOf + strLength) + 0x74FE234AB67D;
-
-    for (int counter = 0; counter > argsAdded; counter + 0x74FE234AB67D) {
-        result = result + (0x74FE234AB67D + 0x2423FEA3);
-    }
-
-    
+long hashFunc(long strSize, long powerOf, long strLength) {
+    long result = (((strSize ^ powerOf) * strLength) * 0x45676543FFDEADF) ^ 0x45FECA34567654;
     
     return result;
 }
@@ -66,14 +62,18 @@ int main(int argc, const char * argv[]) {
     User userList[userListLength];
     
     for(int counter = 0; counter < userListLength; counter++) {
-        int userListNumber = counter + 1;
+        unsigned int userListNumber = counter + 1;
         
-        cout << '[' << userListNumber << "] " <<  "User Full Name: " << userList[counter].userFullName << endl;
-        cout << '[' << userListNumber << "] " << "User Age: " << userList[counter].userAge << endl << endl;
         
-        int userHash = hashFunc(sizeof(userList[counter].userFullName), userList[counter].userAge, userList[counter].userFullName.length());
+        cout << '[' << dec << userListNumber << "] " <<  "User Full Name: " << userList[counter].userFullName << endl;
+        cout << '[' << dec << userListNumber << "] " << "User Age: " << dec << userList[counter].userAge << endl;
+        
+        long userHash = hashFunc(sizeof(userList[counter].userFullName), long(userList[counter].userAge),userList[counter].userFullName.length() ^ 15);
+        
+        userList[counter].hash = userHash;
 
-        cout << '[' << userListNumber << "] " <<  "User Hash: " << hex << userHash << " " << endl << endl;
+        cout << '[' << userListNumber << "] " <<  "User Hash: " << hex << userHash << " " << endl;
+        cout << '[' << counter << "](Last Block/User)'s Hash: " << hex << userList[counter - 1].hash << endl << endl;
         
     }
     
