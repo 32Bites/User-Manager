@@ -115,7 +115,7 @@ int main(int argc, const char * argv[]) {
         cout << RESET << '[' << CYAN << BOLD << dec << userListNumber << RESET << "] " << MAGENTA << "User Full Name: " << RESET << userList[counter].userFullName << endl;
         cout << RESET << '[' << CYAN << BOLD << dec << userListNumber << RESET << "] " << MAGENTA << "User Age: " << RESET << dec << userList[counter].userAge << endl;
         cout << RESET << '[' << CYAN << BOLD << userListNumber << RESET << "] " << MAGENTA <<  "User Hash: " << RESET << hex << userHash << " " << endl;
-        cout << RESET << '[' << YELLOW << BOLD << counter << RESET << ']' << MAGENTA << "Previous Hash: " << RESET << hex << lastHash << endl << endl;
+        cout << RESET << '[' << YELLOW << BOLD << counter << RESET << "] " << MAGENTA << "Previous Hash: " << RESET << hex << lastHash << endl << endl;
         
     }
     return 0;
